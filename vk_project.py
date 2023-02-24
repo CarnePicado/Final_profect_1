@@ -2,7 +2,7 @@ import requests
 
 
 VK_USER_ID = 151227453
-with open('/home/carnepicado/Desktop/NetologyHomeWork/Work_with_json/FinalProject/token.txt', 'r') as file_object:
+with open(input('Enter the filepath: \n'), 'r') as file_object:
     token_vk = file_object.read().strip()
 
 class VK_photo_save:
@@ -30,7 +30,7 @@ class VK_photo_save:
         for d in data['response']['items']:
             photo_params['like_count'] == d['likes']['count']
             file_url = d['sizes']['url']
-            photo_params['filename'] = file_url.split('/')[-1]
+            photo_params['filename'] = file_url.split('/')
             photo_params['comments_count'] == d['comments']['count']
             if photo_params['like_count'] < d['likes']['count']:
                 if photo_params['like_count'] == d['likes']['count']:
@@ -46,7 +46,7 @@ class VK_photo_save:
 vk = VK_photo_save(token_vk, '5.131')
 vk.get_photo_data()
 
-with open('/home/carnepicado/Desktop/NetologyHomeWork/Work_with_json/FinalProject/token.txt', 'r') as file_object:
+with open(input('Enter the filepath: \n'), 'r') as file_object:
     token_ya = file_object.read().strip()
 
 class YaDisk:
@@ -56,8 +56,8 @@ class YaDisk:
 
     def get_headers(self):
         return {
-            'Content-Type': 'application/json'
-            'Authorization': 'OAuth {self.token}'
+            'Content-Type': 'application/json',
+            'Authorization': f'OAuth {self.token}'
             }
 
     def _get_upload_link(self, disk_file_path):
@@ -77,5 +77,5 @@ class YaDisk:
 
 
 ya = YaDisk(token_ya)
-ya.upload_file_to_disk('Lisk/photo.jpg', 'photo.jpg')
+ya.upload_file_to_disk(input('Enter the filepath: \n'), 'photo.jpg')
 
